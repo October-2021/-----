@@ -1,229 +1,1053 @@
 <!DOCTYPE html>
-<html lang="zh">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>心新智志</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=KaiTi&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <style>
-        body {
-            font-family: 'Noto Sans SC', sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        .upload-section {
-            background-color: rgba(255, 255, 255, 0.9);
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            max-width: 500px;
-            width: 100%;
-        }
-        #project-title {
-            font-family: 'KaiTi', serif;
-            font-size: 2.5em;
-            margin-bottom: 20px;
-            color: #333;
-        }
-        .upload-container {
-            border: 2px dashed #ccc;
-            padding: 30px;
-            border-radius: 15px;
-            background-color: #fafafa;
-            transition: border-color 0.3s;
-        }
-        .upload-container.dragover {
-            border-color: #007bff;
-        }
-        #fileSelect {
-            margin-top: 20px;
-            padding: 10px 30px;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        #fileSelect:hover {
-            background-color: #0056b3;
-        }
-        .progress-bar {
-            width: 100%;
-            background-color: #f0f0f0;
-            border-radius: 5px;
-            margin-top: 10px;
-            overflow: hidden;
-        }
-        .progress-bar div {
-            height: 10px;
-            background-color: #007bff;
-            border-radius: 5px;
-            width: 0;
-            transition: width 0.3s;
-        }
-        .progress-bar.success div {
-            background-color: #28a745;
-        }
-        .progress-bar.error div {
-            background-color: #dc3545;
-        }
-        .error-message {
-            color: #dc3545;
-            margin-top: 10px;
-        }
-        .prediction-button {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-        .prediction-button:hover {
-            background-color: #45a049;
-        }
-    </style>
-</head>
-<body>
-    <!-- 上传部分的整体布局 -->
-    <div class="upload-section">
-        <!-- 项目标题，居中显示 -->
-        <h1 id="project-title">心新智志</h1>
+<html lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
 
-        <!-- 上传框 -->
-        <div class="upload-container" id="drop-area">
-            <h3>拖拽文件到此上传</h3>
-            <p>或点击选择文件</p>
-            <input type="file" id="fileElem" style="display:none" multiple>
-            <button id="fileSelect">选择文件</button>
-            
-            <div id="output"></div>
-            <div id="error"></div>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<meta name="author" content="October">
+
+
+    
+    
+
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://October-2021.github.io/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:locale" content="zh-Hans">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo">
+
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/favicon.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+    <style> .article { opacity: 0;} </style>
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>Hexo</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: true,
+        isPost: false,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+</head></html>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/头像.jpg" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">October</a></h1>
+        </hgroup>
+
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:2455334574@qq.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" href="#" title="GitHub"></a>
+                            
+                                <a class="fa RSS" href="/atom.xml" title="RSS"></a>
+                            
+                                <a class="fa QQ" href="/2455334574" title="QQ"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/总结/">总结</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂项/">杂项</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/测试/">测试</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://moxfive.xyz/">MOxFIVE</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">HA省最弱的蒟蒻</div>
+                </section>
+                
+            </div>
         </div>
-        <p id="upload-description">请上传冠状动脉造影图</p> 
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">October</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/头像.jpg" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">October</a></h1>
+            </hgroup>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:2455334574@qq.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="#" title="GitHub"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                            
+                                <a class="fa QQ" target="_blank" href="/2455334574" title="QQ"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap">
+  
+    <article id="post-有生之年系列" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2020/02/23/有生之年系列/" class="article-date">
+      <time datetime="2020-02-23T04:26:00.525Z" itemprop="datePublished">2020-02-23</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h1 id="有生之年系列"><a href="#有生之年系列" class="headerlink" title="有生之年系列"></a>有生之年系列</h1><ol>
+<li><del>《青春猪头少年》剧场版</del></li>
+<li>《no game no life》第二季</li>
+<li>《约会大作战》第三季重做</li>
+<li>《约会大作战》第四季</li>
+<li>《欢迎来到实力至上主义的教室》第二季</li>
+<li>《樱花庄的宠物女孩》第二季</li>
+<li>jc社倒闭</li>
+<li></li>
+</ol>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-2019-10-30-差分约束学习笔记" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2019/10/30/2019-10-30-差分约束学习笔记/" class="article-date">
+      <time datetime="2019-10-30T14:03:39.000Z" itemprop="datePublished">2019-10-30</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/30/2019-10-30-差分约束学习笔记/">差分约束学习笔记</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <h1 id="差分约束学习笔记"><a href="#差分约束学习笔记" class="headerlink" title="差分约束学习笔记"></a>差分约束学习笔记</h1><p>嘛，我知道是一个很简单的东西了，看看玩玩嘛</p>
+<p>学差分约束这么久了就知道建图建图，偶然做到题碰见了，具体讲讲吧</p>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
     </div>
 
-    <!-- 脚本处理文件上传和进度显示 -->
+      
+        <p class="article-more-link">
+          <a href="/2019/10/30/2019-10-30-差分约束学习笔记/#more">阅读全文 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-浅谈对抗搜索和A-B剪枝" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2019/10/22/浅谈对抗搜索和A-B剪枝/" class="article-date">
+      <time datetime="2019-10-22T14:03:39.000Z" itemprop="datePublished">2019-10-22</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/22/浅谈对抗搜索和A-B剪枝/">对抗搜索和A-B剪枝</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <h1 id="浅谈对抗搜索和-A-B-剪枝"><a href="#浅谈对抗搜索和-A-B-剪枝" class="headerlink" title="浅谈对抗搜索和$A-B$剪枝"></a>浅谈对抗搜索和$A-B$剪枝</h1><p><del>阿尔法和贝塔怎么打啊呜呜呜</del></p>
+<p>名字特别霸气，道理还是很浅显易懂的</p>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2019/10/22/浅谈对抗搜索和A-B剪枝/#more">阅读全文 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-高斯消元" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2019/10/18/高斯消元/" class="article-date">
+      <time datetime="2019-10-18T07:20:39.000Z" itemprop="datePublished">2019-10-18</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/18/高斯消元/">高斯消元</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <h1 id="高斯消元"><a href="#高斯消元" class="headerlink" title="高斯消元"></a>高斯消元</h1><h2 id="主要作用"><a href="#主要作用" class="headerlink" title="主要作用"></a>主要作用</h2><p>求解线性方程组</p>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><h3 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h3><p>我们都会解一元一次方程组吧（废话）</p>
+<p>那么二元的呢（有两个未知数），那么我们有两个不同的方程就可以解出来了</p>
+<p>三元三个肯定大家也会解</p>
+<p>所以我们可以猜测，有$n$个不同的方程时可以解出$n$ 元一次方程</p>
+<p>(这个看起来很显然，但是详细证明起来很麻烦，想知道的可以自行上网找资料)</p>
+<p>好了，我们来解一下一万元一次方程吧。。。</p>
+<p>这就是计算机应该解决的问题了</p>
+<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>回想一下我们平时是怎么解这类方程的</p>
+<p>肯定是消元啊就是不停的拿两个方程相减，逐渐减少未知量的个数</p>
+<p>（这个不会建议重新学习小学课程）</p>
+<p>那么，我们就把我们平时的思想用代码来实现一下吧</p>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2019/10/18/高斯消元/#more">阅读全文 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-2019-10-15-线段树合并" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2019/10/15/2019-10-15-线段树合并/" class="article-date">
+      <time datetime="2019-10-15T07:20:39.000Z" itemprop="datePublished">2019-10-15</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/15/2019-10-15-线段树合并/">线段树合并</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <h1 id="线段树合并总结"><a href="#线段树合并总结" class="headerlink" title="线段树合并总结"></a>线段树合并总结</h1><p>也是学了好长时间了，结果发现做题时根本不会用QwQ</p>
+<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>这个看名字就知道了吧，把两颗线段树合并为一颗，合并就可以做到信息的整合之类的</p>
+<p>一般以权值线段树居多吧</p>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2019/10/15/2019-10-15-线段树合并/#more">阅读全文 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-2019-10-14-卡特兰数" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2019/10/14/2019-10-14-卡特兰数/" class="article-date">
+      <time datetime="2019-10-14T07:20:39.000Z" itemprop="datePublished">2019-10-14</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/14/2019-10-14-卡特兰数/">卡特兰数</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <h1 id="卡特兰数总结"><a href="#卡特兰数总结" class="headerlink" title="卡特兰数总结"></a>卡特兰数总结</h1><p>考试考到自闭，发现自己对数学和推公式一窍不通</p>
+<h2 id="概念-建议先跳过"><a href="#概念-建议先跳过" class="headerlink" title="概念(建议先跳过)"></a>概念(建议先跳过)</h2><p>卡特兰数是一种经典的组合数,常出现在各种计数问题的数列（雾）</p>
+<p> 最常见的递推 $h(n) = h(0)  * h(n -  1) + h(1) * h(n -2) + … + h(n - 1) * h(0)$（$h(0) = h(1) = 1$)</p>
+<p>另类递推式$h(n) = h(n - 1) * (4 * n - 2)$</p>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2019/10/14/2019-10-14-卡特兰数/#more">阅读全文 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-2019-10-14-博客搬迁公告" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2019/10/14/2019-10-14-博客搬迁公告/" class="article-date">
+      <time datetime="2019-10-13T23:20:39.000Z" itemprop="datePublished">2019-10-14</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/14/2019-10-14-博客搬迁公告/">博客搬迁公告</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>之前一直在洛谷博客，但是因为不太美观扩展也不太多，使用起来不太方便</p>
+<p>也考虑过用博客园，但是一直想着美化美化最后GSS代码粘了一堆，搞得乱七八糟的，最后主动爆破</p>
+<p>关于hexo博客也爆破过一个，其实建这个博客也不算太麻烦，根据教程一步一步来就好了</p>
+<p>如果土豪玩家嫌弃静态博客发布修改麻烦的话，可以尝试自购服务器+域名+WordPress的组合</p>
+<p>好了，希望大家看我的博客有所帮助</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/杂项/">杂项</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-我的第一篇博客文章" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2019/10/12/我的第一篇博客文章/" class="article-date">
+      <time datetime="2019-10-12T14:03:39.000Z" itemprop="datePublished">2019-10-12</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/12/我的第一篇博客文章/">我的第一篇博客文章</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              输入密码才给看QwQ
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/测试/">测试</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2019/10/12/我的第一篇博客文章/#more">阅读全文 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-关于主席树的一些总结" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2019/10/12/关于主席树的一些总结/" class="article-date">
+      <time datetime="2019-10-12T14:03:39.000Z" itemprop="datePublished">2019-10-12</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/12/关于主席树的一些总结/">主席树</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <h1 id="关于主席树的一些总结"><a href="#关于主席树的一些总结" class="headerlink" title="关于主席树的一些总结"></a>关于主席树的一些总结</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>学主席树其实已经有一段时间了，之前一直认为自己理解了，也没有写博客总结。在一段时间后看到了可持久化tire树后想总结他们的不同时，才发现自己并不算太理解主席树（关于它们的不同将在tire树总结处有介绍）</p>
+<p>这篇博文偏基础，里面有很多我对于主席树的理解，如果有错误欢迎指正，有见解也欢迎提出，蒟蒻感激不尽</p>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2019/10/12/关于主席树的一些总结/#more">阅读全文 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2019/10/12/hello-world/" class="article-date">
+      <time datetime="2019-10-12T13:31:31.697Z" itemprop="datePublished">2019-10-12</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/12/hello-world/">Hello World</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+  
+    <nav id="page-nav">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+    </nav>
+  
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2019-2020 October
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
     <script>
-        const dropArea = document.getElementById('drop-area');
-        const output = document.getElementById('output');
-        const errorDiv = document.getElementById('error');
-        const fileElem = document.getElementById('fileElem');
-        const fileSelect = document.getElementById('fileSelect');
-
-        const allowedFileTypes = ['image/jpeg', 'image/png', 'image/dcm' ];
-        const maxFileSize = 5 * 1024 * 1024; // 5MB
-
-        // 防止默认事件
-        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-            dropArea.addEventListener(eventName, preventDefaults, false);
-        });
-
-        function preventDefaults(e) {
-            e.preventDefault();
-            e.stopPropagation();
-        }
-
-        // 增加拖拽样式效果
-        ['dragenter', 'dragover'].forEach(eventName => {
-            dropArea.classList.add('dragover');
-        });
-
-        ['dragleave', 'drop'].forEach(eventName => {
-            dropArea.classList.remove('dragover');
-        });
-
-        dropArea.addEventListener('drop', handleDrop, false);
-        fileSelect.addEventListener('click', () => fileElem.click(), false);
-        fileElem.addEventListener('change', handleFiles, false);
-
-        function handleDrop(e) {
-            const dt = e.dataTransfer;
-            const files = dt.files;
-            handleFiles({ target: { files } });
-        }
-
-        function handleFiles(e) {
-            const files = e.target.files;
-            [...files].forEach(uploadFile);
-        }
-
-        function uploadFile(file) {
-            if (!allowedFileTypes.includes(file.type)) {
-                showError(`文件类型不支持: ${file.name}`);
-                return;
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
             }
-
-            if (file.size > maxFileSize) {
-                showError(`文件大小超过限制: ${file.name}`);
-                return;
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
             }
-
-            const previewContainer = document.createElement('div');
-            const fileInfo = document.createElement('div');
-            const fileName = document.createElement('p');
-            fileName.textContent = `文件: ${file.name}`;
-            fileInfo.appendChild(fileName);
-
-            const progressBar = document.createElement('div');
-            progressBar.classList.add('progress-bar');
-
-            const progress = document.createElement('div');
-            progressBar.appendChild(progress);
-
-            previewContainer.appendChild(fileInfo);
-            previewContainer.appendChild(progressBar);
-            output.appendChild(previewContainer);
-
-            // 假装上传成功
-            setTimeout(() => {
-                progress.style.width = '100%';
-                progress.classList.add('success');
-                fileName.textContent = `文件 ${file.name} 上传成功`;
-
-                // 调用 API 获取预测图片
-                fetch('https://www.loliapi.com/bg/')
-                    .then(response => response.json())
-                    .then(data => {
-                        const imgURL = data.imgurl;
-                        const predictionContainer = document.createElement('div');
-                        predictionContainer.classList.add('prediction-image');
-                        const link = document.createElement('a');
-                        link.href = 'https://yizhexie.github.io/';
-                        link.textContent = '查看预测结果';
-                        link.target = '_blank';
-                        link.classList.add('prediction-button');
-                        predictionContainer.appendChild(link);
-                        output.appendChild(predictionContainer);
-                    })
-                    .catch(() => {
-                        const errorLink = document.createElement('a');
-                        errorLink.href = 'https://yizhexie.github.io/';
-                        errorLink.textContent = '查看预测结果';
-                        errorLink.target = '_blank';
-                        errorLink.classList.add('prediction-button');
-                        errorDiv.appendChild(errorLink);
-                    });
-            }, 1000);
-        }
-
-        function showError(message) {
-            const error = document.createElement('p');
-            error.textContent = message;
-            error.classList.add('error-message');
-            errorDiv.appendChild(error);
-        }
+        })
     </script>
+
+
+
+
+
+    <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+             tags: ".article-tag a", 
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+    <script>
+        var originTitle = document.title;
+        var titleTime;
+        document.addEventListener("visibilitychange", function() {
+            if (document.hidden) {
+                document.title = "(つェ⊂) 我藏好了哦~ " + originTitle;
+                clearTimeout(titleTime);
+            }
+            else {
+                document.title = "(*´∇｀*) 被你发现啦~ " + originTitle;
+                titleTime = setTimeout(function() {
+                    document.title = originTitle;
+                }, 2000);
+            }
+        })
+    </script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
 </body>
 </html>
